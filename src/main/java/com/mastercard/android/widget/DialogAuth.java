@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.mastercard.android.Mastercard;
 import com.mastercard.android.R;
 
 public class DialogAuth extends DialogFragment {
@@ -18,24 +19,7 @@ public class DialogAuth extends DialogFragment {
     @Override
     public void onViewCreated(View view, Bundle bundle) {
         super.onViewCreated(view, bundle);
-        Uri.Builder builder = new Uri.Builder();
-        builder.scheme("https")
-                .authority("sandbox.masterpass.com")
-                .appendPath("lightbox")
-                .appendPath("version213")
-                .appendPath("Switch")
-                .appendPath("index.html")
-                .appendQueryParameter("consumerWalletId", "id_consumer")
-                .appendQueryParameter("merchantCheckoutId",  "id_merchant")
-                .appendQueryParameter("requestedDataType[]", "CARD")
-                .appendQueryParameter("requestedDataType[]", "PROFILE")
-                .appendQueryParameter("requestedDataType[]", "ADDRESS")
-                .appendQueryParameter("requestPairing", "true")
-                .appendQueryParameter("requestToken", "414d4b76787a5a7358524d6a45307635327732455365413d")
-                .appendQueryParameter("walletName", "name")
-                //.appendQueryParameter("shippingLocationProfile", "NAmerica,SAmerica")
-                .appendQueryParameter("pairingRequestToken", "414d4b76787a5a7358524d6a45307635327732455365413d");
-        web.loadUrl(builder.build().toString());
+        web.loadUrl(Mastercard.getMastercardSetting().getUrlLightbox());
         web.setWebViewClient(new WebViewClientAuth());
         web.getSettings().setJavaScriptEnabled(true);
     }
